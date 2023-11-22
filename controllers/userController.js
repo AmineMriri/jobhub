@@ -19,6 +19,31 @@ module.exports = {
         }
     },
 
+    updateUserCV: async (req, res) => {
+        if (req.body.password) {
+            req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.SECRET).toString();
+        }
+        
+        try {
+            const { cv } = req.body;
+    
+            // You might want to perform additional validation on the cv field here
+    
+            const updatedUser = await User.findByIdAndUpdate(
+                req.user.id,
+                { $set: { cv } },
+                { new: true }
+            );
+    
+            const { password, __v, createdAt, ...others } = updatedUser._doc;
+    
+            res.status(200).json({ ...others });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    
+
     deleteUser: async (req, res) => {
         try {
             await User.findByIdAndDelete(req.user.id)
