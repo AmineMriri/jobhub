@@ -1,0 +1,11 @@
+###################################################################
+########## README FILE ############################################
+
+
+#build the docker container
+
+	docker build -t jobhub .
+
+#run the conatiner 
+	docker run -p $PORT:5002 jobhub
+
