@@ -7,5 +7,4 @@
 	docker build -t jobhub .
 
 #run the conatiner 
-	docker run -p $PORT:5002 jobhub
-
+	docker-compose up -d
