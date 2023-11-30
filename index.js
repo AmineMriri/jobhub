@@ -9,6 +9,15 @@ const jobRoute = require("./routes/job");
 const bookmarkRoute = require("./routes/bookmark");
 const chatRoute = require("./routes/chat");
 const messageRoute = require("./routes/messages");
+const cors = require('cors'); //add new
+
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
 
 
 dotenv.config()
@@ -17,7 +26,7 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log("connected to the db")).catch((err) => { console.log(err) });
 
-
+app.use(cors(corsOptions));  // enabling CORS
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,9 +44,10 @@ const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
         // localhost
-        origin: "https://jobhubrest-main2-production.up.railway.app/"
+        // origin: "https://jobhubrest-main2-production.up.railway.app/"
         // hosted server
         // origin: "https://jobhubbackend-production.up.railway.app/"
+        origin : corsOptions.origin,
     }
 });
 
