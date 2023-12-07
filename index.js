@@ -37,7 +37,7 @@ app.use("/api/bookmarks", bookmarkRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
 
-console.log(`trying autobuild`));
+console.log(`webhook autobuild`));
 
 const server = app.listen(process.env.PORT || 4000, () => console.log(`Example app listening on port ${process.env.PORT}!`));
 
