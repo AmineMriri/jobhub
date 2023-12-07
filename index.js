@@ -18,7 +18,7 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-
+const port = 5002;
 
 dotenv.config()
 
@@ -39,7 +39,11 @@ app.use("/api/messages", messageRoute);
 
 console.log(`webhook autobuild`));
 
-const server = app.listen(process.env.PORT || 4000, () => console.log(`Example app listening on port ${process.env.PORT}!`));
+const server = app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is listening on port ${port}`);
+});
+
+// const server = app.listen(process.env.PORT || 4000, () => console.log(`Example app listening on port ${process.env.PORT}!`));
 
 const io = require('socket.io')(server, {
     pingTimeout: 60000,
